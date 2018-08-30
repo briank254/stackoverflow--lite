@@ -1,0 +1,359 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    font: 15px/1.5 Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+/*Global*/
+
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+
+}
+.button{
+    
+    height: 3em;
+    background: #17b890;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: black !important;
+    margin: 3%;
+    font-size: 1em;
+    
+
+}
+a {
+    text-decoration: none;
+}
+
+/*header*/
+header{
+    background-color: turquoise;
+    color: white;
+    padding-top: 2em;
+    min-height: 70px;
+    border-bottom: black 3px solid;
+}
+header a{
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#title{
+    float: left;
+}
+
+#title h1{
+    margin: 0;
+    
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+
+}
+
+header li{
+    
+    display: inline;
+    padding: 0 20px 0 20px;
+
+}
+header .highlight, header .current a{
+    color: black;
+    font-weight: bold;
+}
+
+header a:hover{
+    color: white;
+    font-weight: bold;
+}
+nav{
+    float: right;
+    margin-top: 10px;
+}
+/*home*/
+#home {
+    position: relative;
+    min-height: 30em;
+    background: url('../image/Q\ and\ A\ \(5.1\).jpg')no-repeat no-repeat 0 -200px ;
+    text-align: left;
+    color: black;
+    overflow: hidden;
+    
+    
+}
+
+#home h1{
+    margin-top: 4em;
+    font-size: 2em;
+    margin-bottom: 0.1em;
+}
+#home p {
+    font-size: 20px;
+}
+.dis{
+    display: flex;
+}
+
+.justify {
+    justify-content: space-between !important;
+}
+
+.hstyle{
+    flex-basis: 24em;
+    flex-shrink: 2;
+    color: white;
+}
+.-container {
+    margin: 0 auto;
+    padding: 32px 15px;
+    max-width: 1294px;
+    width: 80%;
+    position: relative;
+    min-height: 250px;
+    z-index: 2;
+}
+
+/*sign in form*/
+.form-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.form-wrapper {
+    width: 20em;
+    padding: 20px;
+    background-color: #ffffff;
+    border: solid 1px #D4D4D5;
+    opacity: 0.9;
+}
+.form-parameters {
+    display: flex;
+    flex-direction: column;
+    
+}
+.form-title {
+    border-bottom: solid 1px #D4D4D5;
+    padding: 10px;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    
+}
+input[type=text], input[type=psw], input[type=number], textarea,select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 0.2em;
+}
+/*sign-up page*/
+#signup {
+    background: url('../image/country-quilt-dark.png');
+    padding-top:0px;
+    text-align: center;
+    min-height: 400px;
+    height: 700px;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+/*profile*/
+.history-title {
+    font-size: 1.5em;
+    padding: 10px;
+}
+#h-table {
+    width: 100%;
+    background-color: rgb(229, 229, 229);
+    border-collapse: collapse;
+    overflow: hidden;
+}
+#profile{
+    position: relative;
+    min-height: 30em;
+    background: url('../image/Q\ and\ A\ \(5.1\).jpg')no-repeat no-repeat 0 -200px ;
+    text-align: left;
+    color: black;
+    overflow: hidden;  
+    
+}
+.profile-section {
+    background-color: rgb(229, 229, 229);
+    
+}
+.profile-section a {
+    color: black;
+}
+.profile-section a:hover{
+    color: turquoise;
+}
+/*site body*/
+.site-body {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    flex-direction: column;
+}
+.site-header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: #d1d8dd 1px solid;
+}
+.site-button {
+    background-color: turquoise;
+    cursor: pointer;
+    min-height: 1em;
+    vertical-align: baseline;
+    padding: 0.5em 1em 0.5em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    user-select: none;
+    margin: 2px;
+    float:right;
+    
+}
+.site-header-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.que-wrapper {
+    max-width: 1100px;
+    width: 80%;
+    background-color: #f4f4f4;
+    border-radius: 0;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.que-wrapper a{
+    color: black;
+    font-weight: bold;
+}
+.que-wrapper a:hover{
+    color: blue;
+    
+}
+.que-body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: #d1d8dd 1px solid;
+}
+.question{
+    width: 100%;
+    padding-left: 8px;
+}
+#answers{
+    width: 80%
+}
+.editor{
+    width:100%;
+    margin-top: .5em;
+    background-color: #D4D4D5;
+    
+}
+#post-button{
+    float: left;
+}
+
+.ask-question {
+    width: 80%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    background-color: slategrey;
+}
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+.text-container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+/*footer*/
+.footer {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    width: 100%;
+    padding: 3em;
+    margin-top: 0.1em;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+footer{
+    position: static;
+    margin-bottom: 0;
+}
+/*Media Queries*/
+@media (max-width:768px){
+    header #title,
+    header nav,
+    header nav li
+    {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+    header{
+        padding-bottom: 1em;
+    }
+    #home {
+        padding-bottom: 2em;
+        flex: none;
+    }
+    #home h1{
+        margin-top: 1em;
+    }
+    .footer {
+        position: absolute;
+        bottom:0;          
+        left:0; 
+    }
+    input[type=text], input[type=password] {
+        width: 100%;
+        display: block;
+    }
+    .button .site-button {
+        display: block;
+        width: 1000%
+    }
+    
+}
+
+
+
