@@ -320,8 +320,8 @@ footer {
     text-align: center;
 }
 .footer{
-    position: static;
-    margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
 }
 /*Media Queries*/
 @media (max-width:400px){
