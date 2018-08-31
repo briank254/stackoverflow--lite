@@ -85,7 +85,7 @@ nav{
 /*home*/
 #home {
     position: relative;
-    min-height: 30em;
+    min-height: 32em;
     background: url('../image/Q\ and\ A\ \(5.1\).jpg')no-repeat no-repeat 0 -200px ;
     text-align: left;
     color: black;
@@ -102,13 +102,6 @@ nav{
 #home p {
     font-size: 20px;
 }
-.dis{
-    display: flex;
-}
-
-.justify {
-    justify-content: space-between !important;
-}
 
 .hstyle{
     flex-basis: 24em;
@@ -123,6 +116,8 @@ nav{
     position: relative;
     min-height: 250px;
     z-index: 2;
+    justify-content: space-between !important;
+    display: flex;
 }
 
 /*sign in form*/
@@ -188,6 +183,9 @@ input[type=text], input[type=psw], input[type=number], textarea,select{
     border-collapse: collapse;
     overflow: hidden;
 }
+#h-table tr:nth-child(even) {
+    background-color: #cccccc;
+}
 #profile{
     position: relative;
     min-height: 30em;
@@ -198,15 +196,21 @@ input[type=text], input[type=psw], input[type=number], textarea,select{
     
 }
 .profile-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+
+}
+    
+.profile-section {
     background-color: rgb(229, 229, 229);
+    
     
 }
 .profile-section a {
     color: black;
 }
-.profile-section a:hover{
-    color: turquoise;
-}
+
 /*site body*/
 .site-body {
     min-height: 80vh;
@@ -306,7 +310,7 @@ textarea {
     overflow: hidden;
 }
 /*footer*/
-.footer {
+footer {
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     width: 100%;
     padding: 3em;
@@ -315,12 +319,12 @@ textarea {
     background-color: black;
     text-align: center;
 }
-footer{
+.footer{
     position: static;
     margin-bottom: 0;
 }
 /*Media Queries*/
-@media (max-width:768px){
+@media (max-width:400px){
     header #title,
     header nav,
     header nav li
@@ -350,10 +354,21 @@ footer{
     }
     .button .site-button {
         display: block;
-        width: 1000%
+        width: 100%;
+    }
+    main .-container{
+        display: inherit;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+
     }
     
 }
-
+@media (max-width: 1120px){
+    .profile-section {
+        width: 100%;
+    }
+}
 
 
