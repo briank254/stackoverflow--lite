@@ -83,14 +83,8 @@ nav{
 }
 /*home*/
 #home {
-    position: relative;
-    min-height: 35em;
-    background: url('../image/Q\ and\ A\ \(5.1\).jpg')no-repeat no-repeat 0 -200px ;
-    text-align: left;
-    color: black;
-    overflow: hidden;
     
-    
+    background: url('../image/Q\ and\ A\ \(5.1\).jpg')no-repeat center center fixed;    
 }
 
 #home h1{
