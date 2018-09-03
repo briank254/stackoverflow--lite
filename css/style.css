@@ -28,8 +28,8 @@ body{
     padding-left: 20px;
     padding-right: 20px;
     color: black !important;
-    margin: 3%;
     font-size: 1em;
+    border-radius: 4px;
     
 
 }
@@ -238,19 +238,25 @@ input[type=text], input[type=password], input[type=number], textarea,select{
     
 }
 .que-wrapper a{
-    color: black;
+    color: blue;
     font-weight: bold;
 }
 .que-wrapper a:hover{
     color: blue;
     
 }
+
 .que-body {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 5px;
+    cursor: pointer;
 }
+#cp-a{
+    cursor: auto;
+}
+
 .question{
     width: 100%;
     padding-left: 8px;
@@ -261,34 +267,34 @@ input[type=text], input[type=password], input[type=number], textarea,select{
 .editor{
     width:100%;
     margin-top: .5em;
-    background-color: #D4D4D5;
     
 }
 #post-button{
-    float: left;
+    float: right;
+}
+.q-container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    color: white;
+}
+.ask-question {
+    width: 121%;
+    margin-top: 100px;
+    background-color: slategrey;
+    border-radius: 1em;
 }
 
-.ask-question {
-    width: 80%;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    background-color: slategrey;
-}
-textarea {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 6px;
-}
 .text-container {
     width: 80%;
     margin: auto;
     overflow: hidden;
 }
+
+textarea{
+    resize: none;
+}
+
 /*footer*/
 footer {
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
