@@ -9,6 +9,7 @@ body{
     background-color: #f4f4f4;
     background: url('../image/Q\ and\ A\ \(5.1\).jpg')no-repeat center center fixed;
     height: 100vh; 
+    background-size: cover;
 
 }
 /*Global*/
