@@ -18,34 +18,37 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html" >Home</a>
+                        <a href="questions.html" class="highlight">questions</a>
                     </li>
                     <li>
-                        <a href="questions.html" class="highlight current">questions</a>
+                        <a href="answers.html">Answers</a>
                     </li>
-                    
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
+                    <li>
+                        <a href="index.html">Logout</a>
+                    </li>
                 </ul>
             </nav>
 
         </div>
     </header>
-    <section class= "container">
+    <section class="container">
         <div id="answers">
             <div class="ask-question">
-                <div class="container">
+                <div class="q-container">
                     <form action>
                         <div>
                             <label for="title">
-                                <h4>Question Summary</h4> 
+                                <h4>Question Summary</h4>
                             </label>
                             <input type="text" name="summary" placeholder="Your question in summary" required autofocus>
 
                         </div>
                         <div class="editor">
                             <label for="text">Your question goes here</label>
-                            <textarea cols="50" rows="10">
-                            
-                            </textarea>
+                            <textarea cols="50" rows="10" placeholder="Type here..."></textarea>
 
                         </div>
                         <div>
@@ -56,5 +59,14 @@
                     </form>
                 </div>
             </div>
-
     </section>
+    <footer class="footer" style="position:fixed">
+        <div class="container">
+            <p>Stackoverflow-Lite, Copyright &copy; 2018</p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
