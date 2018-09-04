@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stackoverflow-Lite :: Welcome</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div id="title">
+                <h1>Stackoverflow <span class="highlight">Lite</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="questions.html" class="highlight">questions</a>
+                    </li>
+                    <li>
+                        <a href="answers.html">Answers</a>
+                    </li>
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
+                    <li>
+                        <a href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+    <section class="container">
+        <div id="answers">
+            <div class="ask-question">
+                <div class="q-container">
+                    <form action>
+                        <div>
+                            <label for="title">
+                                <h4>Question Summary</h4>
+                            </label>
+                            <input type="text" name="summary" placeholder="Your question in summary" required autofocus>
+
+                        </div>
+                        <div class="editor">
+                            <label for="text">Your question goes here</label>
+                            <textarea cols="50" rows="10" placeholder="Type here..."></textarea>
+
+                        </div>
+                        <div>
+                            <button class="site-button" id="post-button">
+                                Post Your Question
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </section>
+    <footer class="footer" style="position:fixed">
+        <div class="container">
+            <p>Stackoverflow-Lite, Copyright &copy; 2018</p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
