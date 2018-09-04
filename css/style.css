@@ -198,6 +198,7 @@ input[type=text], input[type=password], input[type=number], textarea,select{
     align-items: center;
     background-color: #ffffff;
     flex-direction: column;
+    background-size: cover;
 }
 .site-header{
     width: 100%;
@@ -232,7 +233,7 @@ input[type=text], input[type=password], input[type=number], textarea,select{
     border-radius: 0;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    padding: 1em;
+    padding: 0.4em;
     display: flex;
     justify-content: space-between;
     
