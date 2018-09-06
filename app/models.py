@@ -14,7 +14,6 @@ class User:
     def add(self):
 
         """method to add new user to users"""
-
         USERS.append(self)
 
     def serialize(self):
