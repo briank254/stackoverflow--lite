@@ -1,3 +1,8 @@
-from flask import Flask
+"""initializes app as a module"""
 
-app = Flask(__name__)
+from flask import Flask
+from . import routes
+
+app = Flask(__name__, instance_relative_config=True)
+
+app.config.from_object('config')
