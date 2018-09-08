@@ -1,138 +1,87 @@
 """app models"""
 
-from datetime import datetime
+import random
 
-USERS = []
-QUESTIONS = []
-ANSWERS = []
-
-
-class User:
-    def __init__(self, name, email, password):
-        """class constructor"""
-
-        self.name = name
-        self.email = email
-        self.password = password
-
-    def add(self):
-        """method to add new user to users"""
-        USERS.append(self)
-
-    def serialize(self):
-        return {
-            "name": self.name,
-            "email": self.email,
-            "password": self.password
-        }
-
+QUESTIONS = {}
+ANSWERS = {}
 
 class Question:
     question_id = 1
 
-    def __init__(self, question=None):
-
+    def __init__(self, title, question):
         """class constructor"""
 
+        self.id = len(QUESTIONS) +1
+        self.title = title
         self.question = question
-        self.id = Question.question_id
-        self.timestamp = "{}".format(
-            datetime.utcnow().strftime("%d-%m-%Y %H:%M"))
-
-        Question.question_id += 1
+        self.answers_id = random.randint(1, 100)
 
     def add(self):
-
         """method to add new question to questions"""
 
-        QUESTIONS.append(self)
+        QUESTIONS[self.id] = {"title": self.title,
+                              "question": self.question,
+                              "answers_id" : self.answers_id
+                             }
+        ANSWERS[self.answers_id] = {}
 
-    def get_all(self):
-
+    @staticmethod
+    def get_all():
         """method to fetch all questions"""
 
-        queries = [question.serialize()for question in QUESTIONS]
+        return QUESTIONS
 
-        return queries
-
-    def serialize(self):
-        return {
-            "question": self.question,
-            "id": self.id,
-            "time": self.timestamp
-        }
-
-    def get_specific(self, question_id):
+    @staticmethod
+    def get_one(question_id):
         """method to fetch a question"""
+        for key in QUESTIONS:
+            if key == question_id:
+                return QUESTIONS[key]
 
-        for question in QUESTIONS:
-            if question.id == question_id:
-                return question
 
-        return None
-
-    def delete_specific(self, question_id):
+    @staticmethod
+    def delete(question_id):
         """method to delete a question"""
 
-        for question in QUESTIONS:
-            if question.id == question_id:
-                QUESTIONS.remove(question)
-                return question
-        return False
-
+        for key in QUESTIONS:
+            if key == question_id:
+                QUESTIONS.pop(key, None)
+                return "deleted"
 
 class Answer:
-    answer_id = 1
-
-    def __init__(self, question, answer):
-        self.question = question
+    def __init__(self, question_id, answer):
+        answers_id = QUESTIONS[question_id]["answers_id"]
+        self.answer_id = len(ANSWERS[answers_id]) +1
+        self.question_id = question_id
         self.answer = answer
-        self.id = Answer.answer_id
-        self.timestamp = "{}".format(
-            datetime.utcnow().strftime("%d-%m-%Y %H:%M"))
 
-        Answer.answer_id += 1
-
-    def add(self):
-
+    def save(self):
         """method to add new answer to answers"""
+        answers_id = QUESTIONS[self.question_id]["answers_id"]
 
-        ANSWERS.append(self)
+        ANSWERS[answers_id][self.answer_id] = self.answer
 
-    def get_all_ans(self, question_id):
 
+    @staticmethod
+    def get_all_answers(question_id):
         """method to fetch all answers to a question"""
 
-        responses = []
-        for answer in ANSWERS:
-            if answer.question.id == question_id:
-                responses.append(answer.serialize())
-        return responses
+        answers_id = QUESTIONS[question_id]["answers_id"]
 
-    def serialize(self):
-        return {
-            "answer": self.answer,
-            "id": self.id,
-            "time": self.timestamp,
-            'question': self.question.serialize()
+        return ANSWERS[answers_id]
 
-        }
-
-    def get_one(self, que_id, ans_id):
-
+    @staticmethod
+    def get_one(question_id, answer_id):
         """method to fetch an answer to a question"""
 
-        for answer in ANSWERS:
-            if answer.id == ans_id and answer.question.id == que_id:
-                return answer
-        return None
+        answers_id = QUESTIONS[question_id]["answers_id"]
 
-    def delete_specific_answer(self, que_id, ans_id):
+        return {"answer" : ANSWERS[answers_id][answer_id]}
 
+    @staticmethod
+    def delete_answer(question_id, answer_id):
         """method to delete an answer to a question"""
 
-        for answer in ANSWERS:
-            if answer.id == ans_id and answer.question.id == que_id:
-                ANSWERS.remove(answer)
-                return answer
-        return False
+        answers_id = QUESTIONS[question_id]["answers_id"]
+
+        ANSWERS[answers_id].pop(answer_id)
