@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/graycadeau/stackoverflow--lite.svg?branch=develop)](https://travis-ci.org/graycadeau/stackoverflow--lite)
+[![Build Status](https://travis-ci.org/graycadeau/stackoverflow--lite.svg?branch=develop)](https://travis-ci.org/graycadeau/stackoverflow--lite) 
+[![Coverage Status](https://coveralls.io/repos/github/graycadeau/stackoverflow--lite/badge.svg?branch=develop)](https://coveralls.io/github/graycadeau/stackoverflow--lite?branch=develop)
 
 # stackoverflow--lite
 StackOverflow--lite is a platform where people can ask questions and provide answers. 
