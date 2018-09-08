@@ -17,16 +17,17 @@ class TestQuestion(unittest.TestCase):
 
         """post question helper"""
 
-        query_info = {
+        question = {
+            "title" : "tests",
             "question": "How do I refactor tests with database?"
         }
 
-        res = self.app.post('/api/v1/questions/',
-                            data=json.dumps(query_info),
-                            content_type='application/json'
-                           )
+        response = self.app.post('/api/v1/questions',
+                                 data=json.dumps(question),
+                                 content_type='application/json'
+                                )
 
-        return res
+        return response
 
     def test_post_question(self):
 
@@ -39,18 +40,19 @@ class TestQuestion(unittest.TestCase):
 
         """method to test get all questions"""
 
-        res = self.app.get('/api/v1/questions/')
+        res = self.app.get('/api/v1/questions')
         self.assertEqual(res.status_code, 200)
 
-    def test_get_specific_question(self):
+    def test_get_one_question(self):
 
         """method to test getting a specific question"""
 
         question = {
+            "title" : "tests",
             "question": "How do I refactor tests with database?"
         }
 
-        res = self.app.post('/api/v1/questions/',
+        res = self.app.post('/api/v1/questions',
                             data=json.dumps(question),
                             content_type='application/json'
                            )
@@ -58,34 +60,21 @@ class TestQuestion(unittest.TestCase):
         res = self.app.get('/api/v1/questions/1')
         self.assertEqual(res.status_code, 200)
 
-    def test_update_question(self):
-
-        """method to test update a question"""
-
-        question = {
-            "question": "How do I refactor tests to pass?"
-        }
-
-        res = self.app.put('/api/v1/questions/1',
-                           data=json.dumps(question),
-                           content_type='application/json')
-
-        self.assertEqual(res.status_code, 201)
-
-    def test_delete_specific_question(self):
+    def test_delete_question(self):
 
         """method to test deleting a specific question"""
 
         question = {
+            "title" : "tests",
             "question": "How do I refactor tests with database?"
         }
 
-        res = self.app.post('/api/v1/questions/',
+        res = self.app.post('/api/v1/questions',
                             data=json.dumps(question),
                             content_type='application/json'
                            )
 
-        res = self.app.delete('/api/v1/questions/8')
+        res = self.app.delete('/api/v1/questions/1')
         self.assertEqual(res.status_code, 200)
 
 
