@@ -63,18 +63,12 @@ pytest
 
 Endpoint | Functionality 
 ------------ | -------------
-POST /api/v1/auth/signup | Signs up a user
-POST /api/v1/auth/login | Logs in up a user
 POST   /api/v1/questions | Post a qusetion
 GET   /api/v1/questions | Get all questions
 GET   /api/v1/questions/<question_id> | Get a single question
-PUT   /api/v1/questions/<question_id> | Update a single question
 DELETE   /api/v1/questions/<question_id> | Delete a question
 POST   /api/v1/questions/<question_id>/answers | Post an answer to a particular question
 GET   /api/v1/questionss/<question_id>/answers | Get all answers to a particular question
-GET   /api/v1/questions/<question_id>/answers/<answer_id> | Get an answer
-PUT  /api/v1/questions/<question_id>/answers/<answer_id> | Update an answer
-DELETE   /api/v1/questions/<question_id>/answers/<answer_id> | Delete a single answer
 
 # Test API endpoints
 Fire up Postman to test the endpoints. 
