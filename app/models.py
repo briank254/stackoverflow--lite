@@ -4,24 +4,26 @@ import random
 
 QUESTIONS = {}
 ANSWERS = {}
+QUESTION_COUNT = 0
+ANSWER_COUNT = 0
+
 
 class Question:
-    question_id = 1
-
     def __init__(self, title, question):
         """class constructor"""
-
-        self.id = len(QUESTIONS) +1
+        global QUESTION_COUNT
+        self.id = QUESTION_COUNT + 1
         self.title = title
         self.question = question
         self.answers_id = random.randint(1, 100)
+        QUESTION_COUNT += 1
 
     def add(self):
         """method to add new question to questions"""
 
         QUESTIONS[self.id] = {"title": self.title,
                               "question": self.question,
-                              "answers_id" : self.answers_id
+                              "answers_id": self.answers_id
                              }
         ANSWERS[self.answers_id] = {}
 
@@ -34,10 +36,8 @@ class Question:
     @staticmethod
     def get_one(question_id):
         """method to fetch a question"""
-        for key in QUESTIONS:
-            if key == question_id:
-                return QUESTIONS[key]
 
+        return QUESTIONS[question_id]
 
     @staticmethod
     def delete(question_id):
@@ -45,22 +45,22 @@ class Question:
 
         for key in QUESTIONS:
             if key == question_id:
-                QUESTIONS.pop(key, None)
-                return "deleted"
+                return QUESTIONS.pop(key, None)
+
 
 class Answer:
     def __init__(self, question_id, answer):
-        answers_id = QUESTIONS[question_id]["answers_id"]
-        self.answer_id = len(ANSWERS[answers_id]) +1
+        global ANSWER_COUNT
+        self.answer_id = ANSWER_COUNT + 1
         self.question_id = question_id
         self.answer = answer
+        ANSWER_COUNT += 1
 
     def save(self):
         """method to add new answer to answers"""
         answers_id = QUESTIONS[self.question_id]["answers_id"]
 
-        ANSWERS[answers_id][self.answer_id] = self.answer
-
+        ANSWERS[answers_id][self.answer_id] = {"answer": self.answer}
 
     @staticmethod
     def get_all_answers(question_id):
@@ -76,7 +76,7 @@ class Answer:
 
         answers_id = QUESTIONS[question_id]["answers_id"]
 
-        return {"answer" : ANSWERS[answers_id][answer_id]}
+        return {"answer": ANSWERS[answers_id][answer_id]}
 
     @staticmethod
     def delete_answer(question_id, answer_id):
