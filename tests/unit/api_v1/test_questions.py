@@ -57,7 +57,7 @@ class TestQuestion(unittest.TestCase):
                             content_type='application/json'
                            )
 
-        res = self.app.get('/api/v1/questions/1')
+        res = self.app.get('/api/v1/questions/2')
         self.assertEqual(res.status_code, 200)
 
     def test_delete_question(self):
