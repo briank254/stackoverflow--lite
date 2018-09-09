@@ -4,26 +4,23 @@ import random
 
 QUESTIONS = {}
 ANSWERS = {}
-QUESTION_COUNT = 0
-ANSWER_COUNT = 0
 
 
 class Question:
-    def __init__(self, title, question):
+    def __init__(self, question_id, title, question):
         """class constructor"""
-        global QUESTION_COUNT
-        self.id = QUESTION_COUNT + 1
+
+        self.id = question_id
         self.title = title
         self.question = question
         self.answers_id = random.randint(1, 100)
-        QUESTION_COUNT += 1
 
     def add(self):
         """method to add new question to questions"""
 
         QUESTIONS[self.id] = {"title": self.title,
                               "question": self.question,
-                              "answers_id": self.answers_id
+                              "answers_id" : self.answers_id
                              }
         ANSWERS[self.answers_id] = {}
 
@@ -36,25 +33,31 @@ class Question:
     @staticmethod
     def get_one(question_id):
         """method to fetch a question"""
+        try:
+            if QUESTIONS[question_id]:
+                return QUESTIONS[question_id]
 
-        return QUESTIONS[question_id]
+        except (KeyError) as error:
+            print(error)
 
     @staticmethod
     def delete(question_id):
         """method to delete a question"""
 
-        for key in QUESTIONS:
-            if key == question_id:
-                return QUESTIONS.pop(key, None)
+        try:
+            if QUESTIONS[question_id]:
+                QUESTIONS.pop(question_id, None)
+                return "deleted"
+        except (KeyError) as error:
+            print(error)
 
 
 class Answer:
-    def __init__(self, question_id, answer):
-        global ANSWER_COUNT
-        self.answer_id = ANSWER_COUNT + 1
+    def __init__(self, answer_id, question_id, answer):
+
+        self.answer_id = answer_id
         self.question_id = question_id
         self.answer = answer
-        ANSWER_COUNT += 1
 
     def save(self):
         """method to add new answer to answers"""

@@ -2,8 +2,10 @@
 
 from flask import request, jsonify
 
-from app.models import Question, Answer, QUESTIONS, ANSWERS
+from app.models import Question, Answer, ANSWERS
+from app.id_gen import id_generator
 from . import app
+
 
 
 @app.route('/api/v1/questions', methods=['POST'])
@@ -22,13 +24,14 @@ def post_question():
         return jsonify({
             "message": "Please fill in all fields"}), 400
 
-    for key, value in QUESTIONS.items():
-        if value.get('question') == question:
-            return jsonify({"message": "Question exists"}), 400
+    auto_gen_id = id_generator(title)
+    if Question.get_one(auto_gen_id):
+        return jsonify({"message": "Question with that title exists"}), 400
 
-    new_question = Question(title, question)
+    new_question = Question(auto_gen_id, title, question)
     new_question.add()
-    return jsonify({"message": "Your question has been posted"}), 201
+    return jsonify({"question": new_question.__dict__,
+                    "message": "Your question has been posted"}), 201
 
 
 @app.route('/api/v1/questions', methods=['GET'])
@@ -36,25 +39,21 @@ def get_all_questions():
     """method to allow user to fetch all questions"""
     questions = Question.get_all()
     if questions:
-        for question_id in questions:
-            question = questions[question_id]
-            answers = ANSWERS[question["answers_id"]]
-            question.update({"answers": answers})
         return jsonify({"questions": questions})
 
-    return jsonify({"message": "No Questions"}), 404
+    return jsonify({"message": "No Questions"})
 
 
 @app.route('/api/v1/questions/<int:question_id>', methods=['GET'])
 def get_one_question(question_id):
     """method to allow user to fetch a specific question"""
 
-    try:
-        question = Question.get_one(question_id)
-        return jsonify({'questions': question})
+    question = Question.get_one(question_id)
 
-    except KeyError:
+    if not question:
         return jsonify({"message": "Question does not exist"}), 404
+
+    return jsonify({'questions': question})
 
 
 @app.route('/api/v1/questions/<int:question_id>', methods=['DELETE'])
@@ -85,13 +84,12 @@ def post_answer(question_id):
         answers_id = Question.get_one(question_id)["answers_id"]
         answers = ANSWERS[answers_id]
 
-        if answers:
-            for answer_id in answers:
-                ans = answers[answer_id]["answer"]
-                if ans == answer:
-                    return jsonify({"message": "Answer exists"}), 400
+        auto_gen_id = id_generator(answer)
 
-        answer = Answer(question_id, answer)
+        if answers.get(auto_gen_id):
+            return jsonify({"message": "Answer exists"}), 400
+
+        answer = Answer(auto_gen_id, question_id, answer)
         answer.save()
         return jsonify({"message": "Your answer has been posted"}), 201
 
@@ -113,7 +111,7 @@ def get_all_answers(question_id):
             if answers:
                 return jsonify({"answers": answers})
 
-        return jsonify({"message": "Question does not have answers yet"}), 202
+        return jsonify({"message": "Question does not have answers yet"})
 
     except KeyError:
         return jsonify({"message": "Question does not exist"}), 404
