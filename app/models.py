@@ -1,6 +1,6 @@
 """app models"""
 
-import random
+import uuid
 
 QUESTIONS = {}
 ANSWERS = {}
@@ -13,7 +13,7 @@ class Question:
         self.id = question_id
         self.title = title
         self.question = question
-        self.answers_id = random.randint(1, 100)
+        self.answers_id = str(uuid.uuid4())
 
     def add(self):
         """method to add new question to questions"""
