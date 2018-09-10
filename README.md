@@ -67,8 +67,8 @@ POST   /api/v1/questions | Post a qusetion
 GET   /api/v1/questions | Get all questions
 GET   /api/v1/questions/<question_id> | Get a single question
 DELETE   /api/v1/questions/<question_id> | Delete a question
-POST   /api/v1/questions/<question_id>/answers | Post an answer to a particular question
-GET   /api/v1/questionss/<question_id>/answers | Get all answers to a particular question
+POST   /api/v1/questions/<question_id>/answers | Post an answer to a question
+GET   /api/v1/questions/<question_id>/answers | Get all answers to a question
 
 # Test API endpoints
 Fire up Postman to test the endpoints. 
