@@ -22,6 +22,7 @@ class TestingConfig(Config):
     Testing configurations
     """
     TESTING = True
+    DATABASE = os.getenv('TEST_DB')
 
 class ProductionConfig(Config):
     """
