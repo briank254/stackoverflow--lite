@@ -16,6 +16,7 @@ class DevelopmentConfig(Config):
     Development configurations
     """
     DEBUG = True
+    DATABASE = os.getenv('TEST_DB')
 
 class TestingConfig(Config):
     """
