@@ -26,6 +26,12 @@ class Questions:
 
         conn = dbconn()
         cur = conn.cursor()
+        cur.execute('''select *
+                       from questions where title=%(title)s''', {'title':self.title})
+
+        rows = cur.fetchone()
+        if rows:
+           return {"Error": "A question with this title exists"}, 400
 
         #insert question to database
         cur.execute('''INSERT INTO questions
@@ -33,7 +39,7 @@ class Questions:
                         title,
                         question
                          ) VALUES(%s, %s, %s)''',
-                    [self.title, self.question, user[0]])
+                    [user[0], self.title, self.question])
 
         cur.close()
         conn.commit()
@@ -48,7 +54,7 @@ class Questions:
         """
         conn = dbconn()
         cur = conn.cursor()
-        cur.execute('''SELECT * from questions''')
+        cur.execute('''SELECT question_id, user_id, title, question from questions''')
 
         rows = cur.fetchall()
 
@@ -56,9 +62,10 @@ class Questions:
         for row in rows:
             question = {
                 'id':row[0],
-                'title':row[1],
-                'questtion': row[2],
-                'author': get_user_by_id(row[3])
+                'author': get_user_by_id(row[1]),
+                'title':row[2],
+                'question': row[3]
+                
             }
             questions.append(question)
 
@@ -68,7 +75,7 @@ class Questions:
         if questions == []:
             return {'message': 'No questions available'}
 
-        return questions, 200
+        return questions
 
     @staticmethod
     def get_single_question(question_id):

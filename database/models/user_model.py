@@ -17,7 +17,8 @@ class Users:
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.password_hash = password
+        self.password_hash = generate_password_hash(password)
+
 
     def signup(self):
         """
@@ -25,7 +26,6 @@ class Users:
         """
 
         data = [self.first_name, self.last_name, self.email, self.password_hash]
-        print("<>", data)
 
         if get_user(self.email):
             return {'message': 'user already exists'}, 400
@@ -60,9 +60,7 @@ class Users:
         if not check_password_hash(stored_password, password):
             return {'message': 'Invalid email or password'}, 400
 
-        expires = datetime.timedelta(days=14)
-
-        access_token = create_access_token(email, expires_delta=expires)
+        access_token = create_access_token(email, expires_delta=False)
 
         return {"success":"Signin successful",
                 "access_token": access_token}
@@ -96,7 +94,7 @@ class Users:
         conn = dbconn()
         cur = conn.cursor()
 
-        cur.execute('''UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s,
+        cur.execute('''UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s
                        WHERE user_id=%(user_id)s''',
                     {'first_name': data.get('first_name'), 'last_name': data.get('last_name'),
                      'user_id': user_id})
