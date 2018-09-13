@@ -5,10 +5,12 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_jwt_extended import JWTManager
 from config import CONFIG
+from flasgger import Swagger
 from database.tables import create_tables
 from .auth import Signup, Signin, User
 from .questions import QuestionsData, Question, UserQuestions
 from .answers import AnswersData, Response
+from .template import TEMPLATE
 
 
 def create_app(config_name):
@@ -19,8 +21,9 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(CONFIG[config_name])
     app.config.from_pyfile('config.py', silent=True)
-
+    Swagger(app, template=TEMPLATE)
     api = Api(app)
+
     create_tables(app.config['DATABASE'])
 
     JWTManager(app)
