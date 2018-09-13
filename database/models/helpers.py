@@ -10,7 +10,7 @@ def get_user_by_id(user_id):
     conn = dbconn()
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM users WHERE user_id=%(user_id)s",
+    cur.execute("SELECT first_name, last_name FROM users WHERE user_id=%(user_id)s",
                 {'user_id':user_id}
                )
 
@@ -77,7 +77,6 @@ def get_user(email):
 
     return rows is not None
 
-
 def get_password(email):
     """
     get users password
@@ -92,8 +91,6 @@ def get_password(email):
 
     return rows
 
-
-
 def check_respondent(email, question_id):
     """
     Check respondent against question author
@@ -104,7 +101,7 @@ def check_respondent(email, question_id):
     code = None
 
     if question_author is None:
-        message = {'error': 'ride not found'}
+        message = {'error': 'Question not found'}
         code = 404
 
     elif user != question_author[0]:
