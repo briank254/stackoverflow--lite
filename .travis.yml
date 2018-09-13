@@ -12,6 +12,7 @@ before script:
   - psql -c 'create database stackoverflow_lite;' -U postgres
   - psql -c "CREATE USER gray WITH PASSWORD 'graycadeau';" -U postgres
   - psql -c 'grant all privileges on database stackoverflow_lite to gray;'
+  - export FLASK_CONFIG='testing'
   - export FLASK_ENV=development
   - export FLASK_APP=server.py
 
