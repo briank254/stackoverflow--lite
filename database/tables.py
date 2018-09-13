@@ -18,9 +18,9 @@ QUERIES = (
     """
     CREATE TABLE IF NOT EXISTS questions(
         question_id SERIAL PRIMARY KEY NOT NULL,
+        user_id int null references users(user_id)on delete cascade,
         title VARCHAR(80) NOT NULL UNIQUE,
         question VARCHAR(500) NOT NULL,
-        user_id int null references users(user_id)on delete cascade,
         answers int default 0
         )
     """,
@@ -30,7 +30,8 @@ QUERIES = (
         answer_id SERIAL PRIMARY KEY NOT NULL,
         user_id int null references users(user_id) on delete cascade,
         question_id int references questions(question_id) on delete cascade,
-        answer VARCHAR(500) NOT NULL
+        answer VARCHAR(500) NOT NULL,
+        status varchar(80) default 'pending'
         )
     """
 )
