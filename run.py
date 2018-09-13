@@ -1,7 +1,7 @@
 """
 Application entry point
 """
-from app import app
+from app import APP
 
 if __name__ == '__main__':
-    app.run()
+    APP.run()
