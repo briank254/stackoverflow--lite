@@ -24,7 +24,7 @@ def create_app(config_name):
     Swagger(app, template=TEMPLATE)
     api = Api(app)
 
-    create_tables(app.config['DATABASE'])
+    create_tables(app.config['TEST_DB'])
 
     JWTManager(app)
 
