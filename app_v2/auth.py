@@ -11,8 +11,26 @@ from .schemas import SIGNUP_SCHEMA, SIGNIN_SCHEMA
 
 EMAIL_REGEX = re.compile(r"\"?([-a-zA-Z0-9.`?{}]+@\w+\.\w+)\"?")
 
+
 class Signup(Resource):
     def post(self):
+        """
+        Signup
+        ---
+        tags:
+            - Auth
+        description: Signup for an account
+        parameters:
+            - name: User
+              in: body
+              schema:
+                $ref: '#/definitions/UserSignup'
+        responses:
+            201:
+                description: Account created successfully
+            400:
+                description: Bad request
+        """
         data = request.json
         try:
             validate(data, SIGNUP_SCHEMA) 
@@ -42,9 +60,28 @@ class Signup(Resource):
 
 class Signin(Resource):
     """
-    Login route handler
+    Signin route handler
     """
     def post(self):
+        """
+        Signin
+        ---
+        tags:
+            - Auth
+        description: Sign into account
+        parameters:
+            - name: signin details
+              in: body
+              schema:
+                $ref: '#/definitions/UserSignin'
+        responses:
+            200:
+                description: signin successfull
+            400:
+                description: Bad request
+            404:
+                description: Wrong credentials
+        """
        
         data = request.json
         try:
@@ -70,6 +107,17 @@ class User(Resource):
     """
     @jwt_required
     def get(self):
+        """
+        Get user
+        ---
+        tags:
+            - Users
+        
+        description: get user details
+        responses:
+            200:
+                description: successful
+        """
         
         return Users.get_user_data()
 

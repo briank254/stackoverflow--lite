@@ -15,6 +15,24 @@ class AnswersData(Resource):
     def get(self, question_id):
         """
         get all answers to a question
+        ---
+        tags:
+            - Answers
+        security:
+            - Bearer: []
+        description: Get answers to a question
+        parameters:
+            - name: question_id
+              in: path
+              type: int
+              description: Id of question you want to view questions
+        responses:
+            200:
+                description: success
+                schema:
+                    $ref: '#/definitions/Answers'
+            404:
+                description: question not found
         """
         response = Answers.get_all_answers(question_id)
 
@@ -24,6 +42,23 @@ class AnswersData(Resource):
     def post(self, question_id):
         """
         post an answer to a question
+        tags:
+            - Answers
+        security:
+            - Bearer: []
+        description: Post an answer to a question
+        parameters:
+            - name: question_id
+              in: path
+              type: int
+              description: Id of question you want to answer
+        responses:
+            200:
+                description: successfully posted
+            400:
+                description: bad request
+            404:
+                description: question not found
         """
 
         data = request.json
@@ -45,6 +80,35 @@ class Response(Resource):
     '''
     @jwt_required
     def put(self, question_id, answers_id):
+        """
+        accept or reject answer to a question
+        ---
+        tags:
+            - Answers
+        security:
+            - Bearer: []
+        description: respond to answer
+        parameters:
+            - name: question_id
+              in: path
+              type: int
+              description: Id of question
+            - name: answer_id
+              in: path
+              type: int
+              description: Id of answer you want to respond to
+            - name: response
+              in: body
+              schema:
+                $ref: '#/definitions/Response'
+        responses:
+            200:
+                description: success
+            400:
+                description: Bad request
+            403:
+                description: Unauthorised, Only owners of question can mark answers
+        """
         
         data = request.json
         

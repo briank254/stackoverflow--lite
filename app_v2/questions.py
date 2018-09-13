@@ -14,8 +14,18 @@ class QuestionsData(Resource):
     """
     def get(self):
         """
-        view all question offers
+        view all questions
+        ---
+        tags:
+            - Questions
+        description: View all questions
+        responses:
+            200:
+                description: questions fetched
+                schema:
+                    $ref: '#/definitions/Question_details'
         """
+
         questions = Questions.get_all_questions()
             
         return ({"questions": questions})
@@ -23,7 +33,23 @@ class QuestionsData(Resource):
     @jwt_required
     def post(self):
         """
-        post question 
+        post a question
+        ---
+        tags:
+            - Questions
+        security:
+            - Bearer: []
+        description: Post question
+        parameters:
+            - name: Questions
+              in: body
+              schema:
+                $ref: '#/definitions/Questions'
+        responses:
+            201:
+                description: Question successfully created
+            400:
+                description: Bad request
         """
         data = request.json
         try:
@@ -53,8 +79,27 @@ class Question(Resource):
     @jwt_required
     def get(self, question_id):
         '''
-        get single question
+        get a single question
+        ---
+        tags:
+            - Questions
+        description: Fetch single question
+        security:
+            - Bearer: []
+        parameters:
+            - name: question_id
+              in: path
+              type: int
+              description: Id of question to fetch
+        responses:
+            200:
+                description: question fetched
+                schema:
+                    $ref: '#/definitions/Question_details'
+            404:
+                description: question not found
         '''
+
         response = Questions.get_single_question(question_id)
 
         return response
@@ -63,7 +108,23 @@ class Question(Resource):
     @jwt_required
     def delete(self, question_id):
         """
-        delete question offer
+        delete question
+        ---
+        tags:
+            - Questions
+        security:
+            - Bearer: []
+        description: Delete question
+        parameters:
+            - name: question_id
+              in: path
+              type: int
+              description: Id of question to delete
+        responses:
+            200:
+                description: question deleted
+            404:
+                description: question not found
         """
         response = Questions.delete_question(question_id)
 
@@ -77,6 +138,9 @@ class UserQuestions(Resource):
     def get(self):
         """
         Get specific user questions
+        ---
+        tags:
+            - Questions
         """
 
         response = Questions.get_user_questions()
