@@ -19,3 +19,40 @@ SIGNUP_SCHEMA  = {
                  "confirm_password"    
                 ]
 }
+
+SIGNIN_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "email": {"type": "string"},
+        "password": {"type": "string"}
+    },
+    "required":['email', 'password']
+}
+
+QUESTION_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "title": {"type": "string"},
+        "question": {"type": "string"}
+        
+    },
+    "required": ["title", "question"]
+}
+ANSWER_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "answer": {"type": "string"},
+    
+        
+    },
+    "required": ["answer"]
+}
+
+
+RESPONSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "status": {"enum": ["accepted", "rejected"]}
+    },
+    "required": ["status"]
+}
