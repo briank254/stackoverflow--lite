@@ -15,7 +15,7 @@ before script:
 
 # command to run tests
 script:
-  - pytest --cov-report term-missing --cov=./
+  - coverage run -m pytest -v
   
 after_success:
   - coveralls
