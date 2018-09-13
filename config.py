@@ -8,7 +8,7 @@ class Config:
     Common configurations
     """ 
     DEBUG = True
-    SECRET_KEY = "Revyutgdh"
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     
 
 class DevelopmentConfig(Config):
