@@ -7,7 +7,6 @@ from app.id_gen import id_generator
 from . import app
 
 
-
 @app.route('/api/v1/questions', methods=['POST'])
 def post_question():
     """method to allow user to post a question"""
