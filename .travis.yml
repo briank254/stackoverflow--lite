@@ -9,13 +9,9 @@ services:
   - postgresql
 
 before script:
+  - psql -c "create role gray with superuser login password 'graycadeau';" -U postgres
   - psql -c 'create database stackoverflow_lite;' -U postgres
-  - psql -c "CREATE USER gray WITH PASSWORD 'graycadeau';" -U postgres
-  - psql -c 'grant all privileges on database stackoverflow_lite to gray;'
-  - export FLASK_CONFIG='testing'
-  - export FLASK_ENV=development
-  - export FLASK_APP=server.py
-
+  - psql -c 'alter database stackoverflow_lite owner to gray' -U postgres
 
 # command to run tests
 script:
