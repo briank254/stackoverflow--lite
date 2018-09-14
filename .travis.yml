@@ -18,5 +18,3 @@ script:
   
 after_success:
   - coveralls
-  
-  export TEST_DB=postgresql://localhost/test_db
