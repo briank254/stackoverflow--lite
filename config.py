@@ -23,7 +23,7 @@ class TestingConfig(Config):
     Testing configurations
     """
     TESTING = True
-    DATABASE = os.getenv('TEST_DB')
+    DATABASE = os.getenv('TEST_DB') or 'postgresql://gray:graycadeau@localhost/stackoverflow_lite'
 
 class ProductionConfig(Config):
     """
