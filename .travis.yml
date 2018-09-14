@@ -9,9 +9,8 @@ services:
   - postgresql
 
 before script:
-  - psql -c "create role gray with superuser login password 'graycadeau';" -U postgres
-  - psql -c 'create database stackoverflow_lite;' -U postgres
-  - psql -c 'alter database stackoverflow_lite owner to gray' -U postgres
+  - export TEST_DB=postgresql://localhost/test_db
+  - psql -c 'CREATE DATABASE test_db;' -U postgres
 
 # command to run tests
 script:
@@ -20,3 +19,4 @@ script:
 after_success:
   - coveralls
   
+  export TEST_DB=postgresql://localhost/test_db
