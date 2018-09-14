@@ -16,7 +16,7 @@ class DevelopmentConfig(Config):
     Development configurations
     """
     DEBUG = True
-    DATABASE = os.getenv('TEST_DB')
+    DATABASE = os.getenv('DEVELOPMENT_DB') or 'postgresql://gray:graycadeau@localhost/stackoverflow_lite'
 
 class TestingConfig(Config):
     """
