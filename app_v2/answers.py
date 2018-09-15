@@ -112,7 +112,7 @@ class Response(Resource):
         
         data = request.json
         
-        validate(data, RESPONSE_SCHEMA)
+        # validate(data, RESPONSE_SCHEMA)
 
         response = Answers.response_to_answer(question_id, answers_id, data)
 
