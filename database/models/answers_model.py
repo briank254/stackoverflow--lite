@@ -5,7 +5,7 @@ Implements Get answers, Make answers and Respond to answers
 from flask import abort
 from flask_jwt_extended import get_jwt_identity
 from ..dbconn import dbconn
-from .helpers import (get_user_by_email, get_question_author, get_user_by_id,
+from .helpers import (get_user_by_email, get_answer_author, get_question_author, get_user_by_id,
                       check_respondent)
 
 class Answers:
@@ -26,6 +26,11 @@ class Answers:
 
         if question is None:
             abort(404, "question not found")
+
+        if user == question:
+             abort(403, "You cannot answer your own question")
+
+
 
         conn = dbconn()
         cur = conn.cursor()
@@ -77,30 +82,50 @@ class Answers:
         reject or accept answer method
         """
         email = get_jwt_identity()
-        user = get_user_by_email(email)[0]
+        user = get_user_by_email(email)
         question_author = get_question_author(question_id)
+        answer_author = get_answer_author(answer_id)
 
         if not question_author:
             abort(404, 'question not found')
-        if user != question_author[0]:
-            abort(403, 'You dont have permission to perform this operation')
+
+        if not answer_author:
+            abort(404, 'Answer not found')
 
         conn = dbconn()
         cur = conn.cursor()
-        cur.execute('''select * from answers where answer_id=%(answer_id)s''',
-                    {'answer_id': answer_id})
 
-        row = cur.fetchone()
-
-        if not row:
-            abort(404, 'That answer does not exist')
-
-        cur.execute('''UPDATE answers SET status =%(status)s 
+        if user == answer_author:
+            cur.execute('''UPDATE answers SET answer =%(answer)s 
                         WHERE answer_id =%(answer_id)s''',
-                    {'answer_id': answer_id, 'status':data['status']})
+                    {'answer_id': answer_id, 'answer':data['answer']})
 
-        cur.close()
-        conn.commit()
-        conn.close()
+            cur.close()
+            conn.commit()
+            conn.close()
 
-        return {'message': 'answer has been updated'}
+            return {'message': 'answer has been updated'}
+
+        elif user == question_author:
+        
+            cur.execute('''select * from answers where answer_id=%(answer_id)s''',
+                        {'answer_id': answer_id})
+
+            row = cur.fetchone()
+
+            if not row:
+                abort(404, 'That answer does not exist')
+
+            cur.execute('''UPDATE answers SET status =%(status)s 
+                            WHERE answer_id =%(answer_id)s''',
+                        {'answer_id': answer_id, 'status':data['status']})
+
+            cur.close()
+            conn.commit()
+            conn.close()
+
+            return {'message': 'Status has been updated'}
+
+        else:
+            return {"message": "You dont have permission to perform this action"}
+
