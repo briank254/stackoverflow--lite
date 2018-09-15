@@ -31,7 +31,7 @@ def get_user_by_email(email):
 
     cur = conn.cursor()
 
-    cur.execute('''SELECT * FROM users WHERE email=%(email)s''', 
+    cur.execute('''SELECT user_id FROM users WHERE email=%(email)s''', 
     {'email':email})
 
     rows = cur.fetchone()
@@ -117,6 +117,36 @@ def get_question_details(question_id):
     conn = dbconn()
     cur = conn.cursor()
     cur.execute('''SELECT * FROM questions WHERE question_id=%(question_id)s''',
+                {'question_id':question_id})
+
+    row = cur.fetchone()
+
+    return row
+
+def get_answer_author(answer_id):
+    """
+    returns answer with specified id
+    """
+    conn = dbconn()
+    cur = conn.cursor()
+
+    cur.execute('''SELECT user_id FROM answers WHERE answer_id=%(answer_id)s''',
+                {'answer_id': answer_id})
+
+    rows = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return rows
+
+def get_answer_details(question_id, answer_id):
+    """
+    Get details of question with it's id
+    """
+    conn = dbconn()
+    cur = conn.cursor()
+    cur.execute('''SELECT answer_id, ques FROM questions WHERE question_id=%(question_id)s''',
                 {'question_id':question_id})
 
     row = cur.fetchone()
