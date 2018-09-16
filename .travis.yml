@@ -10,7 +10,7 @@ install:
 services:
   - postgresql
 
-before script:
+before_script:
   - psql -c 'CREATE DATABASE test_db;' -U postgres
 
 # command to run tests
