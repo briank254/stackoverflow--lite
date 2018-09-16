@@ -1,6 +1,6 @@
 language: python
 env:
-  - TEST_DB=postgresql://localhost/test_db
+  - TEST_DB=postgresql://postgres@localhost/test_db
 python:
   - "3.6"
 
