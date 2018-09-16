@@ -18,7 +18,8 @@ def test_client(request):
 
     ctx = app.app_context()
     ctx.push()
-    database = os.getenv('TEST_DB')
+    database = app.config['DATABASE']
+    print ("db", database)
     yield app_client
 
     def drop():

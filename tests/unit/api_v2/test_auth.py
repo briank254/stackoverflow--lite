@@ -27,6 +27,7 @@ def test_signup(test_client):
     """
     response = test_client.post('/api/v2/auth/signup', data=json.dumps(DATA[0]),
                                 content_type='application/json')
+
     assert response.status_code == 201
 
 def test_signup_mismatching_passwords(test_client):
@@ -119,3 +120,4 @@ def test_signin_missing_field(test_client):
                                 content_type='application/json')
 
     assert response.status_code == 400
+    

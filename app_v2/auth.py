@@ -42,15 +42,24 @@ class Signup(Resource):
                 return ({"message" : "Please fill in all the fields"}), 400
 
             if not re.match(EMAIL_REGEX, data['email']):
-                return{"message":"Invalid Email"}, 400
+                return({"message":"Invalid Email"}), 400
+
+            if data['password'] is not None and data['password'].strip() == "":
+                return ({"message" : "Please fill in all the fields"}), 400
+
+            if data['confirm_password'] is not None and data['confirm_password'].strip() == "":
+                return ({"message" : "Please fill in all the fields"}), 400
+            
+            if len(data['password']) < 8:
+                return ({"message" : "Password too short"}), 400
 
             if data['password'] != data['confirm_password']:
                 return {'message': 'Passwords do not match'}, 400
 
             new_user = Users(data['first_name'],
-                                data['last_name'],
-                                data['email'],
-                                data['password']
+                             data['last_name'],
+                             data['email'],
+                             data['password']
                             )
             response = new_user.signup()
 
