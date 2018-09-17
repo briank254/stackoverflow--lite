@@ -30,6 +30,7 @@ class ProductionConfig(Config):
     Production configurations
     """
     DEBUG = False
+    DATABASE = os.getenv('DATABASE_URL')
 
 CONFIG = {
     'development': DevelopmentConfig,
