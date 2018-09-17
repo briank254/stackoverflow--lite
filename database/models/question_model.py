@@ -58,7 +58,7 @@ class Questions:
 
         rows = cur.fetchall()
 
-        questions = {}
+        questions = []
         for row in rows:
             question = {
                 'id':row[0],
@@ -67,12 +67,12 @@ class Questions:
                 'question': row[3]
                 
             }
-            questions.update(question)
+            questions.append(question)
 
         cur.close()
         conn.close()
 
-        if questions == {}:
+        if questions == []:
             return {'message': 'No questions available'}
 
         return questions

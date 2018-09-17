@@ -97,13 +97,14 @@ class Answers:
 
         if user == answer_author:
             cur.execute('''UPDATE answers SET answer =%(answer)s 
-                        WHERE answer_id =%(answer_id)s''',
-                    {'answer_id': answer_id, 'answer':data['answer']})
+                        WHERE answer_id =%(answer_id)s and question_id =%(question_id)s''',
+                    {'answer_id': answer_id, 'answer':data['answer'], 'question_id': question_id})
 
             cur.close()
             conn.commit()
             conn.close()
-
+            # if question_author == answer_author:
+            #     return {'message': 'not allowed'}
             return {'message': 'answer has been updated'}
 
         elif user == question_author:

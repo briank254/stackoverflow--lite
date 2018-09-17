@@ -85,7 +85,7 @@ def get_question_id(test_client):
                               )
     result = json.loads(response.data.decode('utf8'))
 
-    question_id = result['questions']['id']
+    question_id = result['questions'][0]['id']
 
     return question_id
 
