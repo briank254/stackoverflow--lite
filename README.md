@@ -40,10 +40,9 @@ git clone https://github.com/graycadeau/stackoverflow--lite.git
 cd stackoverflow--lite
 ```
 
-* Create a virtual environment and activate it
+* Create a `.env` file with same format as in `.env .example` and run it 
 ```
-python3 -m venv venv
-source venv/bin/activate
+source .env
 ```
 * Install all dependencies
 
@@ -69,6 +68,7 @@ GET   /api/v1/questions/<question_id> | Get a single question
 DELETE   /api/v1/questions/<question_id> | Delete a question
 POST   /api/v1/questions/<question_id>/answers | Post an answer to a question
 GET   /api/v1/questions/<question_id>/answers | Get all answers to a question
+PUT   /api/v1/questions/<question_id>/answers/<question_id> | Update an answer to a question
 
 # Test API endpoints
 Fire up Postman to test the endpoints. 
