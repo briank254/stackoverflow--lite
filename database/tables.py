@@ -1,7 +1,7 @@
 """
 Create db table
 """
-
+import os
 import psycopg2
 
 QUERIES = (
@@ -56,4 +56,5 @@ def create_tables(db_url):
 
 
 if __name__ == '__main__':
-    create_tables("postgresql://gray:graycadeau@localhost/stackoverflow_lite")
+    TEST_DB = os.getenv("DATABASE_URL")
+    create_tables(TEST_DB)
