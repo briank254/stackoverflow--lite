@@ -4,7 +4,6 @@ API V2 initialisation as a module
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_jwt_extended import JWTManager
-from flask_cors import CORS
 from config import CONFIG
 from flasgger import Swagger
 from database.tables import create_tables
@@ -28,7 +27,6 @@ def create_app(config_name):
     create_tables(app.config['DATABASE'])
 
     JWTManager(app)
-    CORS(app)
 
     api.add_resource(Signup, '/api/v2/auth/signup')
     api.add_resource(Signin, '/api/v2/auth/signin')
