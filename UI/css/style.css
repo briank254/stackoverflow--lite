@@ -154,7 +154,7 @@ nav{
     flex-direction: column;
     
 }
-input[type=text], input[type=psw], input[type=number], textarea,select{
+input[type=text], input[type=password], input[type=number], textarea,select{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
