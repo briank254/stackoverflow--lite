@@ -40,17 +40,18 @@
 
                 <div class="form-wrapper">
                     <div>
-                        <form action="">
+                        <form id="signin-form" action="questions.html">
+                            <div id="alert-message" class="alert"></div>
                             <div class="form-parameters">
                                 <h3 class="form-title">Sign In</h3>
                                 <div class="field">
-                                    <input type="text" placeholder="Enter email address" name="email" required>
+                                    <input type="text" id="email" placeholder="Enter email address" name="email" required>
                                 </div>
                                 <div class="field">
-                                    <input type="password" placeholder="Enter Password" name="password" required>
+                                    <input type="password" id="password" placeholder="Enter Password" name="password" required>
                                 </div>
                                 <div class="field">
-                                    <button class="button" type="submit">
+                                    <button class="button" type="button" onclick="signin()">
                                         <span><b> Sign In</b> </span>
                                     </button>
                                     <hr>
@@ -66,10 +67,14 @@
             </div>
         </main>
     </section>
-    <footer class="footer" >
+    <footer class="footer">
         <div class="container">
             <p>Stackoverflow-Lite, Copyright &copy; 2018</p>
         </div>
     </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
