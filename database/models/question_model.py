@@ -102,7 +102,7 @@ class Questions:
         cur.close()
         conn.close()
 
-        return {'question': question}
+        return {'message':'success', 'question': question}
 
     @staticmethod
     def get_user_questions():
