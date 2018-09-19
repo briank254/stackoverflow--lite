@@ -13,8 +13,7 @@ const signup = (event) => {
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(data),
     })
-        .then((res) => res.json())
-
+        .then(response => response.json())
         .then((data) => {
             if (data.message === 'Please fill in all fields') {
                 displayAlert('Please fill in all fields');
@@ -39,3 +38,41 @@ const signup = (event) => {
         .catch(error => (error));
 };
 
+const signupform = document.getElementById('signup-form');
+if (signupform) {
+    signupform.addEventListener('submit', signup);
+}
+const signin = () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const data = {
+        email: email,
+        password: password
+    };
+
+
+    fetch('http://127.0.0.1:5000/api/v2/auth/signin', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.message === 'Missing email parameter') {
+                displayAlert('Missing email parameter');
+            }
+            if (data.message === 'Missing password parameter') {
+                displayAlert('Missing password parameter');
+            }
+            if (data.message === 'Invalid email or password') {
+                displayAlert('Invalid email or password');
+            }
+
+            if (data.success === 'Signin successful') {
+                window.location.replace('questions.html');
+                localStorage.setItem('access_token', data.access_token);
+            }
+        })
+        .catch(error => (error));
+};
