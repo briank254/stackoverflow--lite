@@ -40,11 +40,15 @@
                 </div>
                 <div class="form-wrapper">
                     <div>
-                        <form action="">
+                        <form id="signup-form" action="index.html">
+                            <div id="alert-message" class="alert"></div>
                             <div class="form-parameters">
                                 <h3 class="form-title">Sign Up</h3>
                                 <div class="field">
-                                    <input type="text" placeholder="Display Name" name="name" required>
+                                    <input type="text" placeholder="First Name" name="firstname" required>
+                                </div>
+                                <div class="field">
+                                    <input type="text" placeholder="Last Name" name="lastname" required>
                                 </div>
 
                                 <div class="field">
@@ -52,10 +56,10 @@
                                 </div>
 
                                 <div class="field">
-                                    <input type="password" placeholder="Enter Password" name="psw" required>
+                                    <input type="password" placeholder="Enter Password" name="password" required>
                                 </div>
                                 <div class="field">
-                                    <input type="password" placeholder="Confirm password" name="psw" required>
+                                    <input type="password" placeholder="Confirm password" name="confirmpassword" required>
                                 </div>
                                 <div class="field">
                                     <button class="button" type="submit">
@@ -79,6 +83,9 @@
             <p>Stackoverflow-Lite, Copyright &copy; 2018</p>
         </div>
     </footer>
+    
+    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
