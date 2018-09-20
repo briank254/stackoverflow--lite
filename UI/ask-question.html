@@ -38,21 +38,21 @@
         <div id="answers">
             <div class="ask-question">
                 <div class="q-container">
-                    <form action>
+                    <form id="question-form">
                         <div>
                             <label for="title">
                                 <h4>Question Summary</h4>
                             </label>
-                            <input type="text" name="summary" placeholder="Your question in summary" required autofocus>
+                            <input type="text" name="title" placeholder="Your question in summary" required autofocus>
 
                         </div>
                         <div class="editor">
                             <label for="text">Your question goes here</label>
-                            <textarea cols="50" rows="10" placeholder="Type here..."></textarea>
+                            <textarea cols="50" rows="10" name="question" placeholder="Type here..."></textarea>
 
                         </div>
                         <div>
-                            <button class="site-button" id="post-button">
+                            <button class="site-button" id="post-button" type="submit">
                                 Post Your Question
                             </button>
                         </div>
@@ -65,7 +65,8 @@
             <p>Stackoverflow-Lite, Copyright &copy; 2018</p>
         </div>
     </footer>
-
+    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 
