@@ -47,8 +47,7 @@ const signin = () => {
     const password = document.getElementById('password').value;
 
     const data = {
-        email: email,
-        password: password
+        email, password,
     };
 
 
@@ -76,6 +75,7 @@ const signin = () => {
         })
         .catch(error => (error));
 };
+
 const getQuestions = () => {
     fetch('http://127.0.0.1:5000/api/v2/questions', {
         method: 'GET',
@@ -84,14 +84,14 @@ const getQuestions = () => {
     })
         .then(response => response.json())
         .then(data => {
-            const questions = data.questions;
+            const { questions } = data;
             let output = '';
 
             for (let counter = 0; counter < questions.length; counter++) {
                 const questionId = questions[counter].id;
-                const author = questions[counter].author;
-                const title = questions[counter].title;
-                const question = questions[counter].question;
+                const { author } = questions[counter];
+                const { title } = questions[counter];
+                const { question } = questions[counter];
 
                 output += `<div class='que-body' data-id=${questionId}>
                 <div class='que-wrapper' >
@@ -101,9 +101,9 @@ const getQuestions = () => {
                 <h4 id='question' data-id=${questionId}>
                     <a href='answers.html' style='color:black;'>${question}</a>
                 </h4>
-                <p> 
-                ${author}
-                </p>
+                <h5> 
+                Author : ${author}
+                </h5>
                 </div>
                 </div>`;
             }
@@ -113,7 +113,7 @@ const getQuestions = () => {
                 div[i].addEventListener('click', getQuestion)
             }
         })
-            .catch(error => (error));
+        .catch(error => (error));
 };
 
 const postQuestion = (e) => {
@@ -123,18 +123,16 @@ const postQuestion = (e) => {
     data.title = form.title.value;
     data.question = form.question.value;
 
-
     fetch('http://127.0.0.1:5000/api/v2/questions', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('access_token')
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`
         },
         body: JSON.stringify(data),
 
     })
         .then(res => res.json())
-
         .then((data) => {
             if (data.message === 'Please fill in all fields') {
                 displayAlert('Please fill in all fields');
