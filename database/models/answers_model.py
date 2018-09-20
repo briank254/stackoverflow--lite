@@ -43,7 +43,7 @@ class Answers:
         conn.commit()
         conn.close()
 
-        return {'message':'You have successfully answered the question'}, 200
+        return {'message':'You have successfully answered the question'}, 201
 
     @staticmethod
     def get_all_answers(question_id):
