@@ -2,6 +2,10 @@
     "extends": "airbnb",
     "rules": {
         "indent" : "off",
-        "no-undef" : 0
+        "no-shadow": 0,
+        "arrow-parens": 0
+    },
+    "env": {
+        "browser": true
     }
 }
