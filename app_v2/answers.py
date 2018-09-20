@@ -34,9 +34,9 @@ class AnswersData(Resource):
             404:
                 description: question not found
         """
-        response = Answers.get_all_answers(question_id)
+        answers = Answers.get_all_answers(question_id)
 
-        return response
+        return ({"answers": answers})
 
     @jwt_required
     def post(self, question_id):
