@@ -151,3 +151,94 @@ const questionForm = document.getElementById('question-form');
 if (questionForm) {
     questionForm.addEventListener('submit', postQuestion);
 }
+
+const getQuestion = (event) => {
+    const token = localStorage.getItem('access_token');
+    const question = event.target;
+    const questionId = question.getAttribute('data-id');
+    const url = `http://127.0.0.1:5000/api/v2/questions/${questionId}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `'Bearer ' ${token}`
+        },
+    })
+        .then(response => response.json())
+        .then((data) => {
+            localStorage.setItem('specific_qn', data.question.question);
+            localStorage.setItem('qn_id', data.question.id);
+            location.href = 'answers.html';
+        })
+        .catch(error => (error));
+};
+
+const postAnswer = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const data = {};
+    data.answer = form.answer.value;
+    const token = localStorage.getItem('access_token');
+    const questionId = localStorage.getItem('qn_id');
+
+    const url = `http://127.0.0.1:5000/api/v2/questions/${questionId}/answers`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `'Bearer ' ${token}`
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.message === 'You cannot answer your own question') {
+                displayAlert('You cannot answer your own question');
+            }
+            if (data.message === 'You have successfully answered the question') {
+                setTimeout(function () { location.reload(true); }, 1000);
+            }
+        })
+        .catch(error => (error));
+};
+const answerForm = document.getElementById('answer-form');
+if (answerForm) {
+    answerForm.addEventListener('submit', postAnswer);
+}
+
+if (window.location.pathname.endsWith('answers.html')) {
+    const token = localStorage.getItem('access_token');
+    const questionId = localStorage.getItem('qn_id');
+    fetch(`http://127.0.0.1:5000/api/v2/questions/${questionId}/answers`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `'Bearer ' ${token}`
+        },
+
+    })
+        .then(response => response.json())
+        .then((data) => {
+            const { answers } = data;
+            let output = '';
+            for (let counter = 0; counter < answers.length; counter++) {
+                const answerId = answers[counter].id;
+                const userName = answers[counter].user_name;
+                const { answer } = answers[counter];
+
+                output += `
+                <div class="que-body">
+                    <div class="que-wrapper">
+                        <p> ${answer}
+                        </p>
+                    </div>
+                </div>
+    
+                `;
+            }
+            document.getElementById('ans').innerHTML = output;
+        })
+        .catch(error => (error));
+}
