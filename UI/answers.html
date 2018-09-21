@@ -46,8 +46,9 @@
         </div>
         <div class="que-body">
             <div class="que-wrapper">
-                <p>Pellentesque a efficitur ipsum, quis semper ante.
-                </p>
+                <div id="que">
+
+                </div>
             </div>
         </div>
         <div class="site-header">
@@ -59,58 +60,36 @@
 
             </div>
         </div>
-        <div class="que-body">
-            <div class="que-wrapper">
-                <p>Nulla finibus ex orci, sit amet pharetra nunc placerat eu. Fusce laoreet nibh et erat fermentum varius.
-                    Praesent rutrum nunc eget eros tempus eleifend. Orci varius natoque penatibus et magnis dis parturient
-                    montes, nascetur ridiculus mus. Morbi non est dui. Quisque id urna neque.
-                </p>
-            </div>
-        </div>
-        <div class="que-body">
-            <div class="que-wrapper">
-                <p>Fusce laoreet nibh et erat fermentum varius.
-
-                </p>
-            </div>
-        </div>
-        <div class="que-body">
-            <div class="que-wrapper">
-                <p>
-                    Praesent rutrum nunc eget eros tempus eleifend. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-                    mus.
-                </p>
-            </div>
-        </div>
-        <div class="que-body">
-            <div class="que-wrapper">
-                <p> Morbi non est dui. Quisque id urna neque.
-                </p>
-            </div>
-        </div>
-        <div class="ans-header">
-            <div class="container">
-                <div class="site-header-wrapper">
-                    <h2>Your Answer</h2>
-
+        <div id="ans">
+            <div class="que-body">
+                <div class="que-wrapper">
                 </div>
-
             </div>
         </div>
         <div id="answers">
             <div class="container">
-                <div class="editor">
-                    <textarea placeholder="Type here..." cols="30" rows="7"></textarea>
+                <form id="answer-form">
+                    <div id="alert-message" class="alert"></div>
+                    <div class="editor">
+                        <textarea name="answer" placeholder="Type here..." cols="30" rows="7"></textarea>
 
-                </div>
+                    </div>
 
-                <button class="site-button" id="post-button">
-                    Post Your Answer
-                </button>
-
+                    <button class="site-button" id="post-button" type="submit">
+                        Post Your Answer
+                    </button>
+                </form>
             </div>
         </div>
     </section>
+    <footer class="footer" style="position:static">
+        <div class="container">
+            <p>Stackoverflow-Lite, Copyright &copy; 2018</p>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/answers.js"></script>
 
 </body>
 
