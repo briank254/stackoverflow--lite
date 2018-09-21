@@ -1,3 +1,4 @@
+const path = 'http://127.0.0.1:5000/api/v2/';
 const signup = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -8,7 +9,7 @@ const signup = (event) => {
     data.password = form.password.value;
     data.confirm_password = form.confirmpassword.value;
 
-    fetch('http://127.0.0.1:5000/api/v2/auth/signup', {
+    fetch(`${path}auth/signup`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(data),
@@ -47,12 +48,10 @@ const signin = () => {
     const password = document.getElementById('password').value;
 
     const data = {
-        email: email,
-        password: password
+        email, password,
     };
 
-
-    fetch('http://127.0.0.1:5000/api/v2/auth/signin', {
+    fetch(`${path}auth/signin`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(data)
@@ -71,27 +70,29 @@ const signin = () => {
 
             if (data.success === 'Signin successful') {
                 window.location.replace('questions.html');
+                localStorage.setItem('user_id', data);
                 localStorage.setItem('access_token', data.access_token);
             }
         })
         .catch(error => (error));
 };
+
 const getQuestions = () => {
-    fetch('http://127.0.0.1:5000/api/v2/questions', {
+    fetch(`${path}questions`, {
         method: 'GET',
         headers: { 'Content-type': 'application/json' },
 
     })
         .then(response => response.json())
         .then(data => {
-            const questions = data.questions;
+            const { questions } = data;
             let output = '';
 
             for (let counter = 0; counter < questions.length; counter++) {
                 const questionId = questions[counter].id;
-                const author = questions[counter].author;
-                const title = questions[counter].title;
-                const question = questions[counter].question;
+                const { author } = questions[counter];
+                const { title } = questions[counter];
+                const { question } = questions[counter];
 
                 output += `<div class='que-body' data-id=${questionId}>
                 <div class='que-wrapper' >
@@ -101,19 +102,22 @@ const getQuestions = () => {
                 <h4 id='question' data-id=${questionId}>
                     <a href='answers.html' style='color:black;'>${question}</a>
                 </h4>
-                <p> 
-                ${author}
-                </p>
+                <h5> 
+                Author : ${author}
+                </h5>
+                <button data-id=${questionId} class="view" type="button">View</button>
+                <button data-id=${questionId} class="delete" type="button">Delete</button>
                 </div>
                 </div>`;
+                console.log(questionId);
             }
             document.getElementById('question').innerHTML = output;
-            const div = document.getElementsByClassName('que-body');
+            const div = document.getElementsByClassName('view');
             for (let i = 0; i < div.length; i++) {
                 div[i].addEventListener('click', getQuestion)
             }
         })
-            .catch(error => (error));
+        .catch(error => (error));
 };
 
 const postQuestion = (e) => {
@@ -124,7 +128,7 @@ const postQuestion = (e) => {
     data.question = form.question.value;
 
 
-    fetch('http://127.0.0.1:5000/api/v2/questions', {
+    fetch(`${path}questions`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -152,4 +156,96 @@ const postQuestion = (e) => {
 const questionForm = document.getElementById('question-form');
 if (questionForm) {
     questionForm.addEventListener('submit', postQuestion);
+}
+
+const getQuestion = (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem('access_token');
+    const question = event.target;
+    const questionId = question.getAttribute('data-id');
+    const url = `${path}questions/${questionId}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then(response => response.json())
+        .then((data) => {
+            localStorage.setItem('specific_qn', data.question.question);
+            localStorage.setItem('qn_id', data.question.id);
+            location.href = 'answers.html';
+        })
+        .catch(error => (error));
+};
+
+const postAnswer = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const data = {};
+    data.answer = form.answer.value;
+    const token = localStorage.getItem('access_token');
+    const questionId = localStorage.getItem('qn_id');
+
+    const url = `${path}questions/${questionId}/answers`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.message === 'You cannot answer your own question') {
+                displayAlert('You cannot answer your own question');
+            }
+            if (data.message === 'You have successfully answered the question') {
+                setTimeout(function () { location.reload(true); }, 1000);
+            }
+        })
+        .catch(error => (error));
+};
+const answerForm = document.getElementById('answer-form');
+if (answerForm) {
+    answerForm.addEventListener('submit', postAnswer);
+}
+
+if (window.location.pathname.endsWith('answers.html')) {
+    const token = localStorage.getItem('access_token');
+    const questionId = localStorage.getItem('qn_id');
+    fetch(`${path}questions/${questionId}/answers`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+
+    })
+        .then(response => response.json())
+        .then((data) => {
+            const { answers } = data;
+            let output = '';
+            for (let counter = 0; counter < answers.length; counter++) {
+                const answerId = answers[counter].id;
+                const { answer } = answers[counter];
+
+                output += `
+                <div class="que-body">
+                    <div class="que-wrapper">
+                        <p> ${answer}
+                        </p>
+                        <button type="button" data-id=${answerId} class="mark">Mark</button>
+                    </div>
+                </div>
+    
+                `;
+            }
+            document.getElementById('ans').innerHTML = output;
+        })
+        .catch(error => (error));
 }
