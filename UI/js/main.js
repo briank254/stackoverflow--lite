@@ -54,7 +54,7 @@ const signin = () => {
     fetch(`${path}auth/signin`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     })
         .then(response => response.json())
         .then((data) => {
@@ -109,12 +109,15 @@ const getQuestions = () => {
                 <button data-id=${questionId} class="delete" type="button">Delete</button>
                 </div>
                 </div>`;
-                console.log(questionId);
             }
             document.getElementById('question').innerHTML = output;
             const div = document.getElementsByClassName('view');
             for (let i = 0; i < div.length; i++) {
                 div[i].addEventListener('click', getQuestion)
+            }
+            const del = document.getElementsByClassName('delete');
+            for (let i = 0; i < del.length; i++) {
+                del[i].addEventListener('click', deleteQuestion)
             }
         })
         .catch(error => (error));
@@ -132,7 +135,7 @@ const postQuestion = (e) => {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('access_token')
+            Authorization: `Bearer${localStorage.getItem('access_token')}`,
         },
         body: JSON.stringify(data),
 
@@ -177,6 +180,29 @@ const getQuestion = (event) => {
             localStorage.setItem('specific_qn', data.question.question);
             localStorage.setItem('qn_id', data.question.id);
             location.href = 'answers.html';
+        })
+        .catch(error => (error));
+};
+
+const deleteQuestion = (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem('access_token');
+    const question = event.target;
+    const questionId = question.getAttribute('data-id');
+    const url = `${path}questions/${questionId}`;
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then((data) => {
+            localStorage.removeItem('specific_qn', data.question.question);
+            localStorage.removeItem('qn_id', data.question.id);
         })
         .catch(error => (error));
 };
