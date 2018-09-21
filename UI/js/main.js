@@ -1,3 +1,4 @@
+const path = 'http://127.0.0.1:5000/api/v2/';
 const signup = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -8,7 +9,7 @@ const signup = (event) => {
     data.password = form.password.value;
     data.confirm_password = form.confirmpassword.value;
 
-    fetch('http://127.0.0.1:5000/api/v2/auth/signup', {
+    fetch(`${path}auth/signup`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(data),
@@ -50,8 +51,7 @@ const signin = () => {
         email, password,
     };
 
-
-    fetch('http://127.0.0.1:5000/api/v2/auth/signin', {
+    fetch(`${path}auth/signin`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(data)
@@ -70,6 +70,7 @@ const signin = () => {
 
             if (data.success === 'Signin successful') {
                 window.location.replace('questions.html');
+                localStorage.setItem('user_id', data);
                 localStorage.setItem('access_token', data.access_token);
             }
         })
@@ -77,7 +78,7 @@ const signin = () => {
 };
 
 const getQuestions = () => {
-    fetch('http://127.0.0.1:5000/api/v2/questions', {
+    fetch(`${path}questions`, {
         method: 'GET',
         headers: { 'Content-type': 'application/json' },
 
@@ -104,11 +105,14 @@ const getQuestions = () => {
                 <h5> 
                 Author : ${author}
                 </h5>
+                <button data-id=${questionId} class="view" type="button">View</button>
+                <button data-id=${questionId} class="delete" type="button">Delete</button>
                 </div>
                 </div>`;
+                console.log(questionId);
             }
             document.getElementById('question').innerHTML = output;
-            const div = document.getElementsByClassName('que-body');
+            const div = document.getElementsByClassName('view');
             for (let i = 0; i < div.length; i++) {
                 div[i].addEventListener('click', getQuestion)
             }
@@ -123,16 +127,18 @@ const postQuestion = (e) => {
     data.title = form.title.value;
     data.question = form.question.value;
 
-    fetch('http://127.0.0.1:5000/api/v2/questions', {
+
+    fetch(`${path}questions`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            Authorization: 'Bearer ' + localStorage.getItem('access_token')
         },
         body: JSON.stringify(data),
 
     })
         .then(res => res.json())
+
         .then((data) => {
             if (data.message === 'Please fill in all fields') {
                 displayAlert('Please fill in all fields');
@@ -153,16 +159,17 @@ if (questionForm) {
 }
 
 const getQuestion = (event) => {
+    event.preventDefault();
     const token = localStorage.getItem('access_token');
     const question = event.target;
     const questionId = question.getAttribute('data-id');
-    const url = `http://127.0.0.1:5000/api/v2/questions/${questionId}`;
+    const url = `${path}questions/${questionId}`;
 
     fetch(url, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
-            Authorization: `'Bearer ' ${token}`
+            Authorization: `Bearer ${token}`,
         },
     })
         .then(response => response.json())
@@ -182,13 +189,13 @@ const postAnswer = (event) => {
     const token = localStorage.getItem('access_token');
     const questionId = localStorage.getItem('qn_id');
 
-    const url = `http://127.0.0.1:5000/api/v2/questions/${questionId}/answers`;
+    const url = `${path}questions/${questionId}/answers`;
 
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
-            Authorization: `'Bearer ' ${token}`
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
     })
@@ -211,11 +218,11 @@ if (answerForm) {
 if (window.location.pathname.endsWith('answers.html')) {
     const token = localStorage.getItem('access_token');
     const questionId = localStorage.getItem('qn_id');
-    fetch(`http://127.0.0.1:5000/api/v2/questions/${questionId}/answers`, {
+    fetch(`${path}questions/${questionId}/answers`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
-            Authorization: `'Bearer ' ${token}`
+            Authorization: `Bearer ${token}`,
         },
 
     })
@@ -225,7 +232,6 @@ if (window.location.pathname.endsWith('answers.html')) {
             let output = '';
             for (let counter = 0; counter < answers.length; counter++) {
                 const answerId = answers[counter].id;
-                const userName = answers[counter].user_name;
                 const { answer } = answers[counter];
 
                 output += `
@@ -233,6 +239,7 @@ if (window.location.pathname.endsWith('answers.html')) {
                     <div class="que-wrapper">
                         <p> ${answer}
                         </p>
+                        <button type="button" data-id=${answerId} class="mark">Mark</button>
                     </div>
                 </div>
     
