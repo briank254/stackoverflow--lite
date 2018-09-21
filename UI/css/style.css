@@ -20,8 +20,7 @@ body{
     overflow: hidden;
 
 }
-.button{
-    
+.button{  
     height: 3em;
     background: #17b890;
     border: 0;
@@ -51,9 +50,9 @@ header a{
     font-size: 14px;
 }
 
-#title{
+/* #title{
     float: left;
-}
+} */
 
 #title h1{
     margin: 0;
@@ -234,7 +233,6 @@ input[type=text], input[type=password], input[type=number], textarea,select{
     border-top-width: 1px;
     border-bottom-width: 1px;
     padding: 0.4em;
-    display: flex;
     justify-content: space-between;
     
 }
@@ -248,7 +246,7 @@ input[type=text], input[type=password], input[type=number], textarea,select{
 }
 
 .que-body {
-    width: 100%;
+    width: 50em;
     display: flex;
     justify-content: center;
     padding: 5px;
@@ -264,6 +262,9 @@ input[type=text], input[type=password], input[type=number], textarea,select{
 }
 #answers{
     width: 80%
+}
+.ansp{
+    margin: 3em;
 }
 .editor{
     width:100%;
@@ -356,9 +357,16 @@ footer {
 }
 @media (max-width: 1120px){
     .profile-section {
+        width: 40em;
+    }
+}
+@media (max-width: 774px){
+    .que-body {
         width: 100%;
     }
 }
+
+
 /*Fetch*/
 .alert{
     border-radius: 1em;
@@ -371,3 +379,4 @@ footer {
     display: none;
 
 }
+
